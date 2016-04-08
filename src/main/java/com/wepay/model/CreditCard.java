@@ -24,7 +24,11 @@ public class CreditCard extends WePayResource {
 	protected Integer expirationYear;
 	protected String lastFour;
 	protected Long[] rbitIds;
+        protected String cc_number;
+        protected String cvv;
+        protected AddressData address;
 
+        public CreditCard() {}
 	public CreditCard(Long creditCardId) {
 		this.creditCardId = creditCardId;
 	}
@@ -39,12 +43,12 @@ public class CreditCard extends WePayResource {
 		return cc;
 	}
 	
-	public void authorize(String accessToken) throws JSONException, IOException, WePayException {
+	public String authorize(String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		request("/credit_card/authorize", params, accessToken);
+		return request("/credit_card/authorize", params, accessToken);
 	}
 	
 	public static CreditCard[] find(CreditCardFindData findData, String accessToken) throws JSONException, IOException, WePayException {
@@ -66,12 +70,12 @@ public class CreditCard extends WePayResource {
 		return found;		
 	}
 	
-	public void delete(String accessToken) throws JSONException, IOException, WePayException {
+	public String delete(String accessToken) throws JSONException, IOException, WePayException {
 		JSONObject params = new JSONObject();
 		params.put("credit_card_id", this.creditCardId);
 		params.put("client_id", WePay.clientId);
 		params.put("client_secret", WePay.clientSecret);
-		request("/credit_card/delete", params, accessToken);
+		return request("/credit_card/delete", params, accessToken);
 	}
 	
 	public Long getCreditCardId() {

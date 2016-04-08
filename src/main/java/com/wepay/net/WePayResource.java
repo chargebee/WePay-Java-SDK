@@ -86,6 +86,9 @@ public class WePayResource {
 		}
 		rd.close();
 		String responseString = response.toString();
+                System.out.println("=============RESPONSE==========================");
+                System.out.println(new JSONObject(responseString).toString(2));
+                System.out.println("================================================");
 		if (error) {
 			WePayException ex = WePayResource.gson.fromJson(responseString, WePayException.class);
 			throw ex;
